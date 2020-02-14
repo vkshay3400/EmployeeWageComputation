@@ -1,0 +1,5 @@
+#!/bin/bash -x
+
+# WELCOME TO EMPLOYEE WAGE COMPUTATION
+
+
