@@ -10,16 +10,18 @@ EMP_RATE_PER_HOUR=20
 # GENERATE RANDOM NUMBER
 randomCheck=$((RANDOM%3))
 
-# TO GET SPART TIME HOURS
-if [ $IS_PART_TIME -eq $randomCheck ]
-then
-	empHours=4
-elif [ $IS_FULL_TIME -eq $randomCheck ]
-then
-	empHours=8
-else
+# TO GET EMP WORK HOURS
+case $randomCheck in
+	$IS_PART_TIME)
+		empHours=4
+		;;
+	$IS_FULL_TIME)
+		empHours=8
+		;;
+	*)
 	empHours=0
-fi
+		;;
+esac
 
 # TO GET SALARY
 salary=$(($empHours*$EMP_RATE_PER_HOUR))
