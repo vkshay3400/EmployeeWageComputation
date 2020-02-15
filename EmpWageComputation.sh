@@ -23,4 +23,4 @@ fi
 
 # TO GET SALARY
 salary=$(($empHours*$EMP_RATE_PER_HOUR))
-echo $salary
+echo "$salary"
