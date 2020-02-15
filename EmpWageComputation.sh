@@ -1,5 +1,6 @@
 #!/bin/bash -x
 
+
 echo "*************************WELCOME TO EMPLOYEE WAGE COMPUTATION*************************"
 
 # CONSTANTS
@@ -46,9 +47,10 @@ do
 	workHours="$( isWorkingHours $((RANDOM%3)) )"
 
 	totalWorkHours=$(($totalWorkHours+$workHours))
-	empDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours )"
+	empDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours $workHours)"
 done
 
 # PRINT SALARY
 totalSalary=$( calcDailyWage $totalWorkHours )
-echo "Daily Wage " ${empDailyWage[@]}
+echo "Daily Wage ${empDailyWage[@]} "
+echo "All Keys ${!empDailyWage[@]}  "
