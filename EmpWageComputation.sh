@@ -30,17 +30,25 @@ function isWorkingHours(){
 		echo $workHours
 }
 
+# FUNCTION FOR CALCULATE DAILY WAGE
+function calcDailyWage(){
+	local workhours=$1
+	wage=$(($workHours*$EMP_RATE_PER_HOUR))
+	echo $wage
+}
+
 # TO GET TOTALSALARY
 while [[ $totalWorkHours -lt $WORKING_TOTAL_HOURS && $totalWorkingDays -lt $WORKING_DAYS ]]
 do
 	((totalWorkingDays++))
-	
+
 	# GENERATE RANDOM NUMBER
 	workHours="$( isWorkingHours $((RANDOM%3)) )"
 
-	totalWorkHours="$(($totalWorkHours+$workHours))"
+	totalWorkHours=$(($totalWorkHours+$workHours))
+	empDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours )"
 done
 
-# TO PRINT SALARY
-totalSalary=$(($totalWorkHours*$EMP_RATE_PER_HOUR))
-echo $totalSalary
+# PRINT SALARY
+totalSalary=$( calcDailyWage $totalWorkHours )
+echo "Daily Wage " ${empDailyWage[@]}
