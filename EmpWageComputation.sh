@@ -11,31 +11,36 @@ WORKING_TOTAL_HOURS=100
 
 # VARIABLES
 totalSalary=0
-totalDays=0
-totalEmpHours=0
+totalWorkingDays=0
+totalWorkHours=0
 
-# OPERATION ON EMPLOYEE WAGES
-while [[ $totalEmpHours -lt $WORKING_TOTAL_HOURS && $totalDays -lt $WORKING_DAYS ]]
-do
-	((totalDays++))
-	
-	# GENERATE RANDOM NUMBER
-	randomCheck=$((RANDOM%3))
-	
-	case $randomCheck in
+# FUNCTION FOR WORKING HOURS
+function isWorkingHours(){
+	case $1 in
 	$IS_PART_TIME)
-		empHours=4
+		workHours=4
 		;;
 	$IS_FULL_TIME)
-		empHours=8
+		workHours=8
 		;;
-	*)
-		empHours=0
+		*)
+		workHours=0
 		;;
 	esac
-	totalEmpHours=$(( $totalEmpHours+$empHours ))
-	totalSalary=$(( $totalEmpHours*$EMP_RATE_PER_HOUR ))
+		echo $workHours
+}
+
+# TO GET TOTALSALARY
+while [[ $totalWorkHours -lt $WORKING_TOTAL_HOURS && $totalWorkingDays -lt $WORKING_DAYS ]]
+do
+	((totalWorkingDays++))
+	
+	# GENERATE RANDOM NUMBER
+	workHours="$( isWorkingHours $((RANDOM%3)) )"
+
+	totalWorkHours="$(($totalWorkHours+$workHours))"
 done
 
-# PRINT SALARY
+# TO PRINT SALARY
+totalSalary=$(($totalWorkHours*$EMP_RATE_PER_HOUR))
 echo $totalSalary
