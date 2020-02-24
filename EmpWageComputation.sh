@@ -27,29 +27,28 @@ function isWorkingHours(){
 		workHours=0
 		;;
 	esac
-		echo $workHours
+		echo "$workHours"
 }
 
 # FUNCTION FOR CALCULATE DAILY WAGE
 function calcDailyWage(){
-	local workhours=$1
+	local workHours=$1
 	wage=$(($workHours*$EMP_RATE_PER_HOUR))
-	echo $wage
+	echo "$wage"
 }
 
 # TO GET TOTALSALARY
 while [[ $totalWorkHours -lt $WORKING_TOTAL_HOURS && $totalWorkingDays -lt $WORKING_DAYS ]]
 do
 	((totalWorkingDays++))
-
 	# GENERATE RANDOM NUMBER
 	workHours="$( isWorkingHours $((RANDOM%3)) )"
 
 	totalWorkHours=$(($totalWorkHours+$workHours))
-	empDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours $workHours)"
+	empDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours )"
 done
 
 # PRINT SALARY
 totalSalary=$( calcDailyWage $totalWorkHours )
-echo "Daily Wage ${empDailyWage[@]} "
-echo "All Keys ${!empDailyWage[@]}  "
+echo "Daily Wage ${empDailyWage[@]}"
+echo "All Keys ${!empDailyWage[@]}"
